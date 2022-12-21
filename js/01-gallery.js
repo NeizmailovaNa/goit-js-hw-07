@@ -4,7 +4,7 @@ import { galleryItems } from './gallery-items.js';
 const galleryContainer = document.querySelector ('.gallery');
 const galleryCards = createGalleryItem (galleryItems);
 galleryContainer.insertAdjacentHTML(`beforeend`, galleryCards)
-galleryContainer.addEventListener ('click', onGalleryContainerClick)
+galleryContainer.addEventListener(`click`, getRightClick)
 
 function createGalleryItem (galleryItems) {
     return galleryItems.map(({preview, original, description}) => {
@@ -22,28 +22,20 @@ function createGalleryItem (galleryItems) {
     })
     .join("");
 };
-console.log(createGalleryItem(galleryItems))
 
-function onGalleryContainerClick (evt) {
-    if(!evt.target.classList.contains('gallery__image')) {
+function getRightClick (e) {
+    e.preventDefault();
+    if (!e.target.classList.contains("gallery__image")) {
         return
     }
-    console.log(evt.target)
+    const instance = basicLightbox.create(
+        `<img src="${e.target.dataset.source}" width="800" height="600"/>   
+        `,)
+    instance.show();
+
+    galleryContainer.addEventListener("keydown", (e) => {
+        if (e.code === "Escape") {
+            instance.close();
+          }
+    })
 }
-
-document.querySelector('gallery__item').onclick = () => {
-	basicLightbox.create(`
-		<img "original">
-	`).show()
-}
-
-
-/*
-
-
-
-import * as basicLightbox from 'basiclightbox'
-const instance = basicLightbox.create(`
-    <img src="${original}">
-`)
-instance.show()*/

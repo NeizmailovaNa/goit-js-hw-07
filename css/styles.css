@@ -14,6 +14,7 @@
   list-style: none;
   margin-left: auto;
   margin-right: auto;
+
 }
 
 .gallery__item {
@@ -31,6 +32,7 @@
   width: 100%;
   object-fit: cover;
   transition: transform var(--animation-duration) var(--timing-function);
+  cursor: pointer;
 }
 
 .gallery__link {
@@ -42,4 +44,6 @@
 .gallery__link:hover {
   cursor: zoom-in;
 }
+
+
 
